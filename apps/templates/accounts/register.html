@@ -16,7 +16,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="/static/assets/images/logo.svg" alt="logo">
+                <img src="/static/assets/images/de.png" alt="logo">
               </div>
               <h4>
                 Sign UP 
@@ -26,7 +26,7 @@
                   {% if msg %}
                       {{ msg | safe }}
                   {% else %}
-                      Add your credentials
+                      Add your Details
                   {% endif %} 
               </h6>
               <form method="post" action="" class="pt-3">
@@ -64,13 +64,6 @@
                     </label>
                   </div>
                   <a href="{% url 'login' %}" class="auth-link text-black">Login</a>
-                </div>
-                <div class="text-center mt-4 fw-light">
-                  &copy; <a target="_blank" href="https://bit.ly/2UTgih5">BootstrapDash</a> 
-                  - coded by AppSeed.
-                  <br/><br/>
-                  <a target="_blank"
-                     href="https://appseed.us/admin-dashboards/django-star-admin">Download Product</a>
                 </div>
               </form>
             </div>
