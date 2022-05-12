@@ -7,7 +7,6 @@
  
 
 
-- UI Kit: **Star Admin 2** (Free Version) by **[BootstrapDash](https://bit.ly/2UTgih5)**
 
 
 - Persistance: SQLite, MySql, PostgreSQL
@@ -25,8 +24,7 @@
  
  
 
-- [Star Admin Django](https://appseed.us/admin-dashboards/django-star-admin) - product page
-- [Star Admin Django](https://django-star-admin.appseed-srv1.com/) - LIVE deployment
+
  
 
 <br />
@@ -51,13 +49,7 @@ Visit `http://localhost:85` in your browser. The app should be up & running.
 
  
 
- 
- 
 
-![Django Star Admin - Seed provided by AppSeed.](https://user-images.githubusercontent.com/51070104/142849749-130c06e2-9ebc-4c48-84c7-d35fe1ae26b3.gif)
- 
-
-<br />
 
 ## How to use it
 
