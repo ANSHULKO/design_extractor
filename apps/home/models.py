@@ -10,9 +10,8 @@ from django.contrib.auth.models import User
 
 class Project(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    team = models.CharField(max_length=100)
-    description = models.TextField()
-    rating = models.IntegerField()
+    url = models.URLField(verbose_name="website")
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -59,3 +58,5 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+

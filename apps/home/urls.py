@@ -12,12 +12,12 @@ urlpatterns = [
     path('', views.index, name='home'),
 
     # Matches any html file
-    re_path(r'^.*\.*', views.pages, name='pages'),
     path('Review/',TemplateView.as_view(template_name='home/Review.html')),
     path('Css/',TemplateView.as_view(template_name='home/Css.html')),
     path('Js/',TemplateView.as_view(template_name='home/Js.html')),
     path('Profile/',TemplateView.as_view(template_name='home/Profile.html')),
-    
+    path('add_website/', add_website, name='addwebsite'),
+    # re_path(r'^.*\.*', views.pages, name='pages'),
 
 
 ]
