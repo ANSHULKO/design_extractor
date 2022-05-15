@@ -27,7 +27,8 @@
         Enter a website to extract webpage
       </div>
       <div class="card-body">
-        <form action="{% url %}" method="post">
+        <form action="{% url 'addwebsite' %}" method="post">
+          
           {% csrf_token %}
           <div class="input-group mb-3">
             <span class="input-group-text" id="iconsearch">
