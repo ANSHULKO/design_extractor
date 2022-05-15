@@ -16,10 +16,11 @@ from django.contrib import messages
 @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
-
-    html_template = loader.get_template('home/index.html')
-    return HttpResponse(html_template.render(context, request))
-
+    websites = Project.objects.all()
+    ctx = {
+            'websites':websites
+    }
+    return render(request,'home/index.html',ctx)
 
 @login_required(login_url="/login/")
 def pages(request):
@@ -59,4 +60,6 @@ def add_website(request):
             project = Project(title=title,url=url,user=request.user)
             project.save()
             messages.success(request, 'website success.')
+    
     return redirect('/')
+

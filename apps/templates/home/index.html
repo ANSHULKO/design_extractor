@@ -54,6 +54,17 @@
   </div>
 </div>
 
+<div class="wrapper"></div>
+ {% for news in newslist %}
+    <div class="card">
+        <h1>{{website.title}}</h1>
+        <p>
+            {{website.text|truncatewords:30}}
+            <a href="#">Recent</a>
+        </p>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}
 
 <!-- Specific JS Plugins goes HERE  -->
