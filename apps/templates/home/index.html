@@ -41,9 +41,9 @@
             <input type="text" class="form-control form-control-lg website" id="website_title" 
             placeholder="Project Title`" name="title"
             aria-label="Enter website address" aria-describedby="website_url" >
-
+            
             <span class="input-group-text" id="buttonsearch">
-             <button class="btn p-0">Collect CSS and JS</button>
+              <button class="btn p-0">Collect CSS and JS</button>
             </span>
           </div>
           
@@ -51,20 +51,27 @@
       </div>
       
     </div>
+    <div class="col-md-8 mx-auto p-4">
+      <div class="row">
+        {% for record in websites %}
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">Project</div>
+              <h1  class="display-1">{{record.title}}</h1>
+              <a class="nav-link p-0" href="{{record.url}}">{{record.url}}</a>
+            </div>
+            <div class="">
+              <a href="/product/{{record.id}}" class="btn w-100 btn-outline-danger btn-block">View Project Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="wrapper"></div>
- {% for news in newslist %}
-    <div class="card">
-        <h1>{{website.title}}</h1>
-        <p>
-            {{website.text|truncatewords:30}}
-            <a href="#">Recent</a>
-        </p>
-    </div>
-    {% endfor %}
-</div>
 {% endblock content %}
 
 <!-- Specific JS Plugins goes HERE  -->
