@@ -63,3 +63,42 @@ def add_website(request):
     
     return redirect('/')
 
+
+def project_details(request,id):
+    ctx = {
+        'project': Project.objects.get(id=id)
+    }
+    return render(request, 'home/project.html',ctx)
+
+
+def project_reviews(request,id):
+     ctx = {
+        'project': Project.objects.get(id=id)
+    }
+     return render(request, 'home/review.html',ctx)
+
+
+
+def profile_detail(request,id):
+     ctx = {
+        'project': Project.objects.get(id=id)
+    }
+     return render(request, 'home/profile.html',ctx)
+
+
+def project_css(request,id):
+     ctx = {
+        'project': Project.objects.get(id=id)
+    }
+     return render(request, 'home/css.html',ctx)
+
+
+def project_js(request,id):
+     ctx = {
+        'project': Project.objects.get(id=id)
+    }
+     return render(request, 'home/js.html',ctx)
+
+
+
+

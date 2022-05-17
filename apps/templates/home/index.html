@@ -62,7 +62,7 @@
               <a class="nav-link p-0" href="{{record.url}}">{{record.url}}</a>
             </div>
             <div class="">
-              <a href="/project/{{record.id}}" class="btn w-100 btn-outline-danger btn-block">View Project Details</a>
+              <a href="{% url 'project_detail' record.id %}" class="btn w-100 btn-outline-danger btn-block">View Project Details</a>
             </div>
           </div>
         </div>
