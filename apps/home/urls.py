@@ -16,6 +16,7 @@ urlpatterns = [
     path('Css/',TemplateView.as_view(template_name='home/Css.html')),
     path('Js/',TemplateView.as_view(template_name='home/Js.html')),
     path('Profile/',TemplateView.as_view(template_name='home/Profile.html')),
+    path('Project/',TemplateView.as_view(template_name='home/project.html')),
     path('add_website/', add_website, name='addwebsite'),
     # re_path(r'^.*\.*', views.pages, name='pages'),
 
