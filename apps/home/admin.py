@@ -7,20 +7,20 @@ from .models import *
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('review','reviewer','rating','created_on')
+    list_display = ('review','reviewer','rating')
 
 @admin.register(Css)
 class CssAdmin(admin.ModelAdmin):
-    list_display = ('content','title','project','created_on')
+    list_display = ('content','title','project')
 
 
 @admin.register(Js)
 class JsAdmin(admin.ModelAdmin):
-    list_display = ('content','title','project','created_on')
+    list_display = ('content','title','project')
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user','avatar','bio','city','email')
+    list_display = ('avatar','bio','city')
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):

@@ -7,8 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import *
+from .forms import *
 from django.shortcuts import redirect, render
-
 from django.contrib import messages
 
 
@@ -72,32 +72,52 @@ def project_details(request,id):
 
 
 def project_reviews(request,id):
-     ctx = {
-        'project': Project.objects.get(id=id)
+    ctx = {
+        'reviews': Review.objects.filter(project__id=id).get()
     }
-     return render(request, 'home/review.html',ctx)
+    return render(request, 'home/review.html',ctx)
 
 
 
-def profile_detail(request,id):
-     ctx = {
-        'project': Project.objects.get(id=id)
-    }
-     return render(request, 'home/profile.html',ctx)
+def profile_detail(request):
+    try:
+        profile =Profile.objects.get(user=request.user)
+        ctx = {'profile': profile}
+        return render(request, 'home/profile.html',ctx)
+    except:
+        return redirect('/profile/edit')
 
+def edit_profile(request):
+    form = ProfileForm()
+    if request.method == "POST":
+        form = ProfileForm(request.POST,request.user,request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user= request.user
+            profile.save()
+            messages.success(request,"profile created successfully")
+            return redirect('/profile')
+        else:
+            messages.error(request,"profile could not be created!")
+    ctx = {'form':ProfileForm(),}
+    return render(request, 'home/profile_edit.html',ctx)
+
+    
 
 def project_css(request,id):
-     ctx = {
-        'project': Project.objects.get(id=id)
+    ctx = {
+        'project': Project.objects.get(id=id),
+        'cssfiles' : Css.objects.filter(project__id=id).all()
     }
-     return render(request, 'home/css.html',ctx)
+    return render(request, 'home/css.html',ctx)
 
 
 def project_js(request,id):
-     ctx = {
-        'project': Project.objects.get(id=id)
+    ctx = {
+        'project': Project.objects.get(id=id),
+        'jsfiles' : Js.objects.filter(project__id=id).all()
     }
-     return render(request, 'home/js.html',ctx)
+    return render(request, 'home/js.html',ctx)
 
 
 

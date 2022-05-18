@@ -12,23 +12,23 @@ class Review(forms.ModelForm):
     
     class Meta:
         model = Review
-        fields = ('review','reviewer','rating','created_on')
+        fields = ('review','reviewer','rating',)
 
 class Css(forms.ModelForm):
     
     class Meta:
         model = Css 
-        fields = ('content','title','project','created_on')
+        fields = ('content','title','project')
 
 
 class Js(forms.ModelForm):
     
     class Meta:
         model = Js 
-        fields = ('content','title','project','created_on')
+        fields = ('content','title','project')
 
 
-class Profile(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     
     class Meta:
         model = Profile
