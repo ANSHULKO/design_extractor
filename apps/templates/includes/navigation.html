@@ -32,6 +32,7 @@
                 <p class="fw-light text-muted mb-0">dubeyanshu555@gmail.com</p>
               </div>
               <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Profile <span class="badge badge-pill badge-danger">1</span></a>
+               <a href="{% url 'logout' %}" class="dropdown-item"></a>
               <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
               
               {% if user.is_authenticated %}
