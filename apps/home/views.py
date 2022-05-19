@@ -81,16 +81,19 @@ def project_reviews(request,id):
 
 def profile_detail(request):
     try:
-        profile =Profile.objects.get(user=request.user)
+        profile =Profile.objects.filter(user=request.user).last()
         ctx = {'profile': profile}
         return render(request, 'home/profile.html',ctx)
-    except:
+    except Exception as e:
+        print(e)
         return redirect('/profile/edit')
 
+
+@login_required(login_url='/login/')
 def edit_profile(request):
     form = ProfileForm()
     if request.method == "POST":
-        form = ProfileForm(request.POST,request.user,request.FILES)
+        form = ProfileForm(request.POST,request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user= request.user
@@ -99,12 +102,13 @@ def edit_profile(request):
             return redirect('/profile')
         else:
             messages.error(request,"profile could not be created!")
+            print('error')
     ctx = {'form':ProfileForm(),}
     return render(request, 'home/profile_edit.html',ctx)
 
     
 
-def project_css(request,id):
+def project_css(request,id): 
     ctx = {
         'project': Project.objects.get(id=id),
         'cssfiles' : Css.objects.filter(project__id=id).all()

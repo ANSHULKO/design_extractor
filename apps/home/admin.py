@@ -20,7 +20,7 @@ class JsAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('avatar','bio','city')
+    list_display = ('firstname','lastname','avatar','bio','city')
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
