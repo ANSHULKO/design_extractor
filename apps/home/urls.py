@@ -13,14 +13,16 @@ urlpatterns = [
 
     # Matches any html file
     path('review/', project_reviews, name='project_reviews'),
-    path('css/', project_css, name='css'),
-    path('js/', project_js, name='js'),
+    path('css/', view_css, name='css'),
+    path('js/', view_js, name='js'),
     path('profile/', profile_detail, name='profile'),
     path('profile/edit/', edit_profile, name='profile_edit'),
     path('project/<int:id>',project_details, name='project_detail'),
     path('project/<int:id>/css',project_css, name='project_css'),
     path('project/<int:id>/js',project_js, name='project_js'),
     path('add_website/', add_website, name='add_website'),
+    path('extract/', extract_website, name='extract_website'),
+    path('delete/<int:id>', delete_project, name='delete_project'),
     # re_path(r'^.*\.*', views.pages, name='pages'),
 
 

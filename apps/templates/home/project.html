@@ -10,25 +10,80 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="col-md-8 mx-auto py-3">
-        <h3>Project</h3>
-        <div class="row">
-           <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">{{project.title}}</h3>
-              </div>
-            </div>
-            <div class="card">
-             <div class="card-body">
-               <h3 class="card-footer">{{project_details}}</h3>
-             </div>
-            </div>
-        </div>
-        </div>
-    </div>         
+  <div class="col-md-8 mx-auto py-3 mt-5">
+    <h3>Project</h3>
+    <h1 class="display-1">{{project.title}}</h1>
+    <a class="lead url" href="{{project.url}}">{{project.url}}</a>
+    <p><small>{{project.created_on}}</small></p>
+    <button class="btn btn-success extract">Collect Design Data from Page</button>
+    {% csrf_token %}
+    <a class="delete btn btn-danger" href="{% url 'delete_project' project.id %}">Delete Project</a>
+  </div>
 </div>
-
-{% endblock  %}
-{% block js %}
-
-{% endblock js %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mx-auto mb-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Stylesheet</div>
+        </div>
+        <div class="card-body">
+          {% for cssfile in css %}
+          <p>{{cssfile.title}}</p>
+          {% empty %}
+          <p>No CSS files found</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 py-3 mx-auto mb-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">javascripts</div>
+        </div>
+        <div class="card-body">
+          {% for jsfile in js %}
+          <p>{{jsfile.title}}</p>
+          {% empty %}
+          <p>No JS files found</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+  $(document).ready(function () {
+    $('.extract').on('click', function () {
+      var url = $('.url').attr('href');
+      var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+      $.ajax({
+        url: '/extract/',
+        type: 'POST',
+        data: {
+          'url': url,
+          'csrfmiddlewaretoken': csrf
+        },
+        success: function (data) {
+          console.log(data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Links Extract from Page',
+            text: 'Awesome! Task completed',
+          })
+        },
+        error: function (data) {
+          console.log(data);
+          Swal.fire({
+            icon: 'error',
+            title: 'Extraction Failed',
+            text: 'Something went wrong!',
+          })
+        }
+      });
+    });
+  });
+</script>
+{% endblock javascripts %}

@@ -2,34 +2,34 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{% url 'home' %}">
               <i class="mdi mdi-grid-large menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link"  href="#icons" >
               <i class="menu-icon mdi mdi-layers-outline"></i>
               <span class="menu-title">Review</span>
               <i class="menu-arrow"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link"  href="{% url 'css' %}" >
               <i class="menu-icon mdi mdi-layers-outline"></i>
               <span class="menu-title">Css</span>
               <i class="menu-arrow"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="{% url 'js' %}" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link"  href="{% url 'js' %}" >
               <i class="menu-icon mdi mdi-layers-outline"></i>
               <span class="menu-title">Js</span>
               <i class="menu-arrow"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="{% url 'profile' %}" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link"  href="{% url 'profile' %}" >
               <i class="menu-icon mdi mdi-layers-outline"></i>
               <span class="menu-title">Profile</span>
               <i class="menu-arrow"></i>
@@ -37,20 +37,30 @@
           </li>
           <li class="nav-item nav-category">pages</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" data-bs-toggle="collapse" href="#auth" >
               <i class="menu-icon mdi mdi-account-circle-outline"></i>
               <span class="menu-title">User Pages</span>
               <i class="menu-arrow"></i>
             </a>
+            
+            {% if user.is_authenticated %}            
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}"> Signout </a></li>
+              </ul>
+            </div>
+            {% else %}
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'login' %}"> Login </a></li>
               </ul>
             </div>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="/register.html"> Register </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'register' %}"> Register </a></li>
               </ul>
-            </div>                     
+            </div>   
+            {% endif %}
+                                
         </ul>
       </nav>

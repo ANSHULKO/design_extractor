@@ -14,14 +14,14 @@ class Review(forms.ModelForm):
         model = Review
         fields = ('review','reviewer','rating',)
 
-class Css(forms.ModelForm):
+class CssForm(forms.ModelForm):
     
     class Meta:
         model = Css 
         fields = ('content','title','project')
 
 
-class Js(forms.ModelForm):
+class JsForm(forms.ModelForm):
     
     class Meta:
         model = Js 

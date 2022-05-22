@@ -10,6 +10,7 @@ from .models import *
 from .forms import *
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from .extractor import *
 
 
 
@@ -64,9 +65,42 @@ def add_website(request):
     return redirect('/')
 
 
+def extract_website(request):
+    if request.method == 'POST':
+        url = request.POST.get('url')
+        # print(name, url)
+        if not url:
+            messages.error(request, 'enter valid url!')
+        elif url:
+            csslinks = get_css_links(url)
+            jslinks = get_js_links(url)
+            if csslinks:
+                for css in csslinks:
+                    data = get_link_data(css)
+                    print(css,data)
+                    if data:
+                        cssfile = Css(content=data,title=css,project=Project.objects.get(url=url))
+                        cssfile.save()
+            if jslinks:
+                for js in jslinks:
+                    data = get_link_data(js)
+                    if data:
+                        jsfile = Js(content=data,title=js,project=Project.objects.get(url=url))
+                        jsfile.save()
+        
+    return redirect('/')
+
+def delete_project(request,id):
+    project = Project.objects.get(id=id)
+    project.delete()
+    return redirect('/')
+
+
 def project_details(request,id):
     ctx = {
-        'project': Project.objects.get(id=id)
+        'project': Project.objects.get(id=id),
+        'css': Css.objects.filter(project__id=id).all(),
+        'js': Js.objects.filter(project__id=id).all(),
     }
     return render(request, 'home/project.html',ctx)
 
@@ -105,21 +139,33 @@ def edit_profile(request):
             print('error')
     ctx = {'form':ProfileForm(),}
     return render(request, 'home/profile_edit.html',ctx)
-
     
 
 def project_css(request,id): 
     ctx = {
         'project': Project.objects.get(id=id),
-        'cssfiles' : Css.objects.filter(project__id=id).all()
+        'cssfiles' : Css.objects.filter(project__id=request.user.id).all()
     }
-    return render(request, 'home/css.html',ctx)
+    return render(request, 'home/projectcss.html',ctx)
 
 
 def project_js(request,id):
     ctx = {
         'project': Project.objects.get(id=id),
-        'jsfiles' : Js.objects.filter(project__id=id).all()
+        'jsfiles' : Js.objects.filter(project__id=request.user.id).all()
+    }
+    return render(request, 'home/projectjs.html',ctx)
+
+def view_css(request): 
+    ctx = {
+        'cssfiles' : Css.objects.filter(project__user__id=request.user.id).all()
+    }
+    return render(request, 'home/css.html',ctx)
+
+
+def view_js(request):
+    ctx = {
+        'jsfiles' : Js.objects.filter(project__user__id=request.user.id).all()
     }
     return render(request, 'home/js.html',ctx)
 
