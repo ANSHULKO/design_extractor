@@ -105,10 +105,14 @@ def project_details(request,id):
     return render(request, 'home/project.html',ctx)
 
 
-def project_reviews(request,id):
-    ctx = {
-        'reviews': Review.objects.filter(project__id=id).get()
-    }
+def project_reviews(request):
+    ctx = {} #empty dir
+    form = ReviewForm() # create empty form
+    if request.method == "POST":
+        form = ReviewForm(request.POST) # create form with POST data
+        if form.is_valid():
+            form.save()
+    ctx['form'] = form
     return render(request, 'home/review.html',ctx)
 
 

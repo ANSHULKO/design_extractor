@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import *
+from .models import * 
 
 
 class Meta:
@@ -8,7 +8,7 @@ class Meta:
         fields = ('username', 'email', 'password1', 'password2')
 
 
-class Review(forms.ModelForm):
+class ReviewForm(forms.ModelForm):
     
     class Meta:
         model = Review
