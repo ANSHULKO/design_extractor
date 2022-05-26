@@ -23,6 +23,10 @@ urlpatterns = [
     path('add_website/', add_website, name='add_website'),
     path('extract/', extract_website, name='extract_website'),
     path('delete/<int:id>', delete_project, name='delete_project'),
+    path('css/download/<int:id>', download_css, name='download_css'),   
+    path('css/delete/<int:id>', delete_css, name='delete_css'),
+    path('js/download/<int:id>', download_js, name='download_js'),
+    path('js/delete/<int:id>', delete_js, name='delete_js'),
     # re_path(r'^.*\.*', views.pages, name='pages'),
 
 

@@ -28,11 +28,28 @@
           <div class="card-title">Stylesheet</div>
         </div>
         <div class="card-body">
-          {% for cssfile in css %}
-          <p>{{cssfile.title}}</p>
-          {% empty %}
-          <p>No CSS files found</p>
-          {% endfor %}
+          <ol class="list-group list-group-numbered">
+            {% for cssfile in css %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Stylesheets 📄</div>
+                {{cssfile.title}}
+              </div>
+              <span class="badge bg-light rounded-pill">
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'download_css' cssfile.id %}">Download</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_css' cssfile.id %}">Delete</a>
+              </span>
+            </li>
+
+            {% empty %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">No Stylesheet File Available</div>
+              </div>
+              <span class="badge bg-primary rounded-pill">retry</span>
+            </li>
+            {% endfor %}
+          </ol>
         </div>
       </div>
     </div>
@@ -43,9 +60,24 @@
         </div>
         <div class="card-body">
           {% for jsfile in js %}
-          <p>{{jsfile.title}}</p>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Javascripts 📄</div>
+              {{jsfile.title}}
+            </div>
+            <span class="badge bg-light rounded-pill">
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'download_js' jsfile.id %}">Download</a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_js' jsfile.id %}">Delete</a>
+            </span>
+          </li>
+
           {% empty %}
-          <p>No JS files found</p>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">No Javascript File Available</div>
+            </div>
+            <span class="badge bg-primary rounded-pill">retry</span>
+          </li>
           {% endfor %}
         </div>
       </div>
@@ -59,6 +91,7 @@
     $('.extract').on('click', function () {
       var url = $('.url').attr('href');
       var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+      $('.extract').html('Extracting...');
       $.ajax({
         url: '/extract/',
         type: 'POST',
@@ -72,7 +105,11 @@
             icon: 'success',
             title: 'Links Extract from Page',
             text: 'Awesome! Task completed',
-          })
+          }).then((result) => {
+            location.reload();
+          });
+
+          $('.extract').html('Successfully extracted')
         },
         error: function (data) {
           console.log(data);
@@ -80,7 +117,10 @@
             icon: 'error',
             title: 'Extraction Failed',
             text: 'Something went wrong!',
-          })
+          }).then((result) => {
+            location.reload();
+          });
+          $('.extract').html('Failed to extracted')
         }
       });
     });

@@ -153,6 +153,30 @@ def project_css(request,id):
     return render(request, 'home/projectcss.html',ctx)
 
 
+def download_css(request,id):
+    css = Css.objects.get(id=id)
+    response = HttpResponse(css.content, content_type='text/css')
+    response['Content-Disposition'] = 'attachment; filename=%s' % css.title
+    return response
+
+def download_js(request,id):
+    js = Js.objects.get(id=id)
+    response = HttpResponse(js.content, content_type='text/javascript')
+    response['Content-Disposition'] = 'attachment; filename=%s' % js.title
+    return response
+
+def delete_css(request,id):
+    css = Css.objects.get(id=id)
+    project_id = css.project.id
+    css.delete()
+    return redirect('/project/'+str(project_id))
+
+def delete_js(request,id):
+    js = Js.objects.get(id=id)
+    project_id = js.project.id
+    js.delete()
+    return redirect('/project/'+str(project_id))
+
 def project_js(request,id):
     ctx = {
         'project': Project.objects.get(id=id),
